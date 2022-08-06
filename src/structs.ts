@@ -29,6 +29,9 @@ export class CellStruct {
 export class BoardStruct {
     cells: CellStruct[][] = [];
     private readonly flat: CellStruct[];
+    evolutionsCount: number = 0;
+    bornCount: number = 0;
+    deathCount: number = 0;
 
     constructor(width: number, height: number) {
         this.cells = Array.from({length: width}, (_, x) => Array.from({length: height}, (_, y): CellStruct => {
@@ -51,8 +54,15 @@ export class BoardStruct {
         return flat;
     }
 
+    zeroStats(){
+        this.deathCount = 0
+        this.evolutionsCount = 0
+        this.bornCount = 0
+    }
+
     kill() {
         this.flat.forEach(x => x.isAlive = false)
+        this.zeroStats()
         return this;
     }
 
@@ -61,6 +71,7 @@ export class BoardStruct {
         const randomCells = sampleSize(this.flat, random(0, this.flat.length))
         for (const randomCell of randomCells) {
             randomCell.isAlive = true;
+            this.bornCount++;
         }
         return this;
     }
@@ -92,9 +103,23 @@ export class BoardStruct {
     }
 
     public next() {
-        const snapshot = cloneDeep(this.flat)
+        let hadChanged: boolean = false;
+        const snapshot = cloneDeep(this.flat);
+
         for (let i = 0; i < this.flat.length; i++) {
+            const before = this.flat[i].isAlive;
             this.flat[i].isAlive = snapshot[i].shouldLive()
+            const after = this.flat[i].isAlive;
+
+            if (before !== after) {
+                if (before && !after) this.deathCount++;
+                if (!before && after) this.bornCount++;
+                hadChanged = true;
+            }
+        }
+
+        if (hadChanged){
+            this.evolutionsCount++;
         }
         return this;
     }

@@ -2,6 +2,7 @@
     import Cell from "./Cell.svelte";
     import {BoardStruct} from '../structs'
     import * as cfg from '../config'
+    import Stats from "./Stats.svelte";
 
     let board = new BoardStruct(10, 10)
     let play: boolean = false
@@ -68,13 +69,31 @@
             Random 🎲
         </button>
     </aside>
+
+    <footer>
+        <Stats board={board}/>
+    </footer>
 </section>
 
 <style lang="scss">
   @import "../const";
 
   section {
-    display: flex;
+    display: grid;
+    grid-template:
+        "board aside" auto
+        "stats stats" auto
+        /auto auto;
+    .board {
+      grid-area: board;
+    }
+    aside {
+      grid-area: aside;
+    }
+    footer {
+      grid-area: stats;
+    }
+
   }
 
   .row {
@@ -106,5 +125,9 @@
     &:hover {
       background: #6a8898;
     }
+  }
+
+  footer {
+
   }
 </style>
