@@ -3,14 +3,18 @@
     import {BoardStruct} from '../structs'
 
     let board = new BoardStruct(10, 10)
+    let play: boolean = false
 
     function next() {
-        board.next()
-        board = board;
+        board = board.next()
     }
 
     function toggleCell(x: number, y: number) {
         board.cells[x][y].isAlive = !board.cells[x][y].isAlive
+    }
+
+    function playPause() {
+        play = !play
     }
 
     board.cells[4][2].isAlive = true
@@ -20,28 +24,38 @@
     board.cells[8][3].isAlive = true
 </script>
 
-<div class="board">
-    {#each board.cells as row, x}
-        <div class="row">
-            {#each row as cell, y}
-                <Cell isAlive={cell.isAlive} on:toggle={() => toggleCell(x, y)}/>
-            {/each}
-        </div>
-    {/each}
-</div>
+<section>
+    <div class="board">
+        {#each board.cells as row, x}
+            <div class="row">
+                {#each row as cell, y}
+                    <Cell isAlive={cell.isAlive} on:toggle={() => toggleCell(x, y)}/>
+                {/each}
+            </div>
+        {/each}
+    </div>
 
-<aside class="buttons">
-    <button on:click={next}>
-        Next Step
-    </button>
+    <aside class="buttons">
+        <button on:click={next}>
+            Next Step
+        </button>
 
-    <button>
-        Play ▶️
-    </button>
-</aside>
+        <button on:click={playPause}>
+            {#if !play}
+                Play ▶️
+            {:else}
+                Pause ⏸
+            {/if}
+        </button>
+    </aside>
+</section>
 
 <style lang="scss">
   @import "../const";
+
+  section {
+    display: flex;
+  }
 
   .row {
     display: flex;
@@ -54,6 +68,7 @@
     flex-direction: column;
     border: $border_config;
   }
+
   .buttons {
     display: flex;
     flex-direction: column;

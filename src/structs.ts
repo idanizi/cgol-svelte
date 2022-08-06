@@ -81,6 +81,7 @@ export class BoardStruct {
         for (let i = 0; i < flat.length; i++) {
             flat[i].isAlive = snapshot[i].shouldLive()
         }
+        return this;
     }
 
     public linkNeighbors() {
