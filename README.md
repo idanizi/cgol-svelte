@@ -14,4 +14,5 @@ pnpm dev
 ## Example
 
 Running example:
-![Video](https://user-images.githubusercontent.com/9889268/183268033-a976a2bc-6170-4551-b8af-c6452d0898bc.mp4)
+
+https://user-images.githubusercontent.com/9889268/183268033-a976a2bc-6170-4551-b8af-c6452d0898bc.mp4
