@@ -1,4 +1,4 @@
-# Conway Game of Life at Svelte
+# Conway Game of Life at Svelte ![svelte icon](./src/assets/svelte.svg)
 by Idan Izicovich
 
 ## Getting Started
