@@ -54,7 +54,7 @@ export class BoardStruct {
         return flat;
     }
 
-    zeroStats(){
+    zeroStats() {
         this.deathCount = 0
         this.evolutionsCount = 0
         this.bornCount = 0
@@ -118,7 +118,7 @@ export class BoardStruct {
             }
         }
 
-        if (hadChanged){
+        if (hadChanged) {
             this.evolutionsCount++;
         }
         return this;
@@ -148,5 +148,15 @@ export class BoardStruct {
 
     isEvolving(): boolean {
         return this.flat.some(x => x.isAlive !== x.shouldLive())
+    }
+
+    prosperity(): number {
+        if (this.deathCount === 0) {
+            if (this.bornCount === 0) {
+                return 0;
+            }
+            return 100;
+        }
+        return this.bornCount / this.deathCount * 100 - 100;
     }
 }

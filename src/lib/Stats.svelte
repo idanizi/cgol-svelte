@@ -12,6 +12,9 @@
         Death Toll: {board.deathCount}
     </span>
     <span>
+        Prosperity: {board.prosperity().toFixed(2) + '%'}
+    </span>
+    <span>
         Evolutions: {board.evolutionsCount}
     </span>
 </div>
