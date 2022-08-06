@@ -23,5 +23,6 @@
     height: $cell_size;
     width: $cell_size;
     border: $border_config;
+    cursor: pointer;
   }
 </style>
