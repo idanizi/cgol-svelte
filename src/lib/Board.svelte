@@ -39,6 +39,10 @@
     function random() {
         board = board.random()
     }
+
+    function zero() {
+        board = board.zeroStats()
+    }
 </script>
 
 <section>
@@ -67,6 +71,10 @@
 
         <button on:click={random}>
             Random 🎲
+        </button>
+
+        <button on:click={zero}>
+            Zero Stats 👌
         </button>
     </aside>
 

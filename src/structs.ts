@@ -54,13 +54,14 @@ export class BoardStruct {
         return flat;
     }
 
-    zeroStats() {
+    zeroStats(): BoardStruct {
         this.deathCount = 0
         this.evolutionsCount = 0
         this.bornCount = 0
+        return this;
     }
 
-    kill() {
+    kill(): BoardStruct {
         this.flat.forEach(x => x.isAlive = false)
         this.zeroStats()
         return this;
