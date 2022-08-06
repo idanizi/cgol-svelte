@@ -27,6 +27,16 @@
     text-align: center;
   }
 
+  h1 {
+    font-size: 4rem;
+    margin: .5em 0;
+    font-weight: 600;
+    background-image: linear-gradient(to left, #553c9a, #b393d3);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+
   main {
     display: flex;
     flex-direction: column;
@@ -49,6 +59,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
         img {
           height: 1.5em;
         }
