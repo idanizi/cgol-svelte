@@ -1,7 +1,13 @@
 {
   "name": "cgol-svelte",
-  "private": true,
-  "version": "0.0.0",
+  "private": false,
+  "version": "0.0.1",
+  "author": {
+    "email": "idanizi@gmail.com",
+    "name": "Idan Izicovich",
+    "url": "https://idanizi.com"
+  },
+  "license": "All rights reserved ©, Idan Izicovich 2022",
   "type": "module",
   "scripts": {
     "dev": "vite",
