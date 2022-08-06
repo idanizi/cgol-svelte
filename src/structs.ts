@@ -1,4 +1,4 @@
-import {cloneDeep, compact, sampleSize, random} from 'lodash'
+import {cloneDeep, compact, sampleSize, random, findLast} from 'lodash'
 
 export class CellStruct {
     neighbors: any[] = [];
@@ -159,5 +159,13 @@ export class BoardStruct {
             return 100;
         }
         return this.bornCount / this.deathCount * 100 - 100;
+    }
+
+    width(): number {
+        return this.cells?.length ?? 0;
+    }
+
+    height(): number {
+        return this.cells?.[0]?.length ?? 0;
     }
 }

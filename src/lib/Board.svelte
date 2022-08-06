@@ -43,6 +43,14 @@
     function zero() {
         board = board.zeroStats()
     }
+
+    function kill() {
+        board = board.kill()
+    }
+
+    function setBoardSize(width: number, height: number) {
+        board = new BoardStruct(width, height);
+    }
 </script>
 
 <section>
@@ -76,6 +84,17 @@
         <button on:click={zero}>
             Zero Stats 👌
         </button>
+
+        <button on:click={kill}>
+            Kill All 💀
+        </button>
+
+        <div class="size">
+            Size:
+            <input type="number" value={board.width()} on:change={(e) => setBoardSize(e.target.value, board.height())}/>
+            /
+            <input type="number" value={board.height()} on:change={(e) => setBoardSize(board.width(),e.target.value)}/>
+        </div>
     </aside>
 
     <footer>
@@ -92,12 +111,15 @@
         "board aside" auto
         "stats stats" auto
         /auto auto;
+
     .board {
       grid-area: board;
     }
+
     aside {
       grid-area: aside;
     }
+
     footer {
       grid-area: stats;
     }
@@ -124,18 +146,17 @@
 
   button {
     cursor: pointer;
-    margin: 0 .2em .2em;
-    border-radius: 10px;
-    background: #7998ab;
-    padding: .8em;
-    text-align: center;
 
     &:hover {
       background: #6a8898;
     }
   }
 
-  footer {
-
+  .size, button {
+    margin: 0 .2em .2em;
+    border-radius: 10px;
+    background: #7998ab;
+    padding: .8em;
+    text-align: center;
   }
 </style>
