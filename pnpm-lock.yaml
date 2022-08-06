@@ -3,6 +3,8 @@ lockfileVersion: 5.4
 specifiers:
   '@sveltejs/vite-plugin-svelte': ^1.0.1
   '@tsconfig/svelte': ^3.0.0
+  '@types/lodash': ^4.14.182
+  lodash: ^4.17.21
   sass: ^1.54.3
   svelte: ^3.49.0
   svelte-check: ^2.8.0
@@ -12,11 +14,13 @@ specifiers:
   vite: ^3.0.0
 
 dependencies:
+  lodash: 4.17.21
   sass: 1.54.3
 
 devDependencies:
   '@sveltejs/vite-plugin-svelte': 1.0.1_svelte@3.49.0+vite@3.0.4
   '@tsconfig/svelte': 3.0.0
+  '@types/lodash': 4.14.182
   svelte: 3.49.0
   svelte-check: 2.8.0_sass@1.54.3+svelte@3.49.0
   svelte-preprocess: 4.10.7_p5qsoo3fc2fgoyqptb7gjc3l7u
@@ -105,6 +109,10 @@ packages:
 
   /@tsconfig/svelte/3.0.0:
     resolution: {integrity: sha512-pYrtLtOwku/7r1i9AMONsJMVYAtk3hzOfiGNekhtq5tYBGA7unMve8RvUclKLMT3PrihvJqUmzsRGh0RP84hKg==}
+    dev: true
+
+  /@types/lodash/4.14.182:
+    resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==}
     dev: true
 
   /@types/node/18.6.4:
@@ -533,6 +541,10 @@ packages:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
     dev: true
+
+  /lodash/4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: false
 
   /magic-string/0.25.9:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}

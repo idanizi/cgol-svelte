@@ -1,12 +1,28 @@
+import {cloneDeep, compact} from 'lodash'
+
 export class CellStruct {
-    neighbors: any[];
-    isAlive: boolean;
+    neighbors: any[] = [];
+    isAlive: boolean = false;
     x: number;
     y: number;
 
+    /**
+     * Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+     * Any live cell with two or three live neighbours lives on to the next generation.
+     * Any live cell with more than three live neighbours dies, as if by overpopulation.
+     * Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+     *
+     * These rules, which compare the behavior of the automaton to real life, can be condensed into the following:
+     * Any live cell with two or three live neighbours survives.
+     * Any dead cell with three live neighbours becomes a live cell.
+     * All other live cells die in the next generation. Similarly, all other dead cells stay dead.
+     */
     public shouldLive(): boolean {
-        // todo
-        return false;
+        const liveNeighborsCount: number = this.neighbors.filter(x => x.isAlive).length
+        if (this.isAlive) {
+            return !(liveNeighborsCount < 2 || liveNeighborsCount > 3);
+        }
+        return liveNeighborsCount === 3;
     }
 }
 
@@ -23,15 +39,33 @@ export class BoardStruct {
         this.linkNeighbors()
     }
 
-    flatCells(): CellStruct[]{
+    public flatCells(): CellStruct[] {
         const flat = [] as CellStruct[];
         for (let row of this.cells) {
             for (let cell of row) {
                 flat.push(cell);
             }
         }
-
         return flat;
+    }
+
+    toString() {
+        let s: string = '';
+        for (let row of this.cells) {
+            for (let cell of row) {
+                s += cell.isAlive ? '1' : '0'
+            }
+            s += '\n'
+        }
+
+        return s;
+    }
+
+    debug(...msg) {
+        if (msg.length) {
+            msg.push("\n")
+        }
+        console.debug(...msg, this.toString())
     }
 
     public get(x: number, y: number): CellStruct | null {
@@ -42,8 +76,10 @@ export class BoardStruct {
     }
 
     public next() {
-        for (let cell of this.flatCells()) {
-            cell.isAlive = cell.shouldLive()
+        const flat = this.flatCells()
+        const snapshot = cloneDeep(flat)
+        for (let i = 0; i < flat.length; i++) {
+            flat[i].isAlive = snapshot[i].shouldLive()
         }
     }
 
@@ -60,7 +96,7 @@ export class BoardStruct {
                 northeast = this.get(x + 1, y - 1)
                 southwest = this.get(x - 1, y + 1)
                 southeast = this.get(x + 1, y + 1)
-                cell.neighbors = [north, east, south, west, northwest, northeast, southwest, southeast];
+                cell.neighbors = compact([north, east, south, west, northwest, northeast, southwest, southeast]);
             }
         }
     }
