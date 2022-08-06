@@ -1,5 +1,5 @@
 # Conway Game of Life at Svelte ![svelte icon](./src/assets/svelte.svg)
-by Idan Izicovich
+by **Idan Izicovich**
 
 ## Getting Started
 see [svelte](https://svelte.dev) docs
