@@ -1,11 +1,24 @@
 <script lang="ts">
     import Cell from "./Cell.svelte";
     import {BoardStruct} from '../structs'
+    import * as cfg from '../config'
 
     let board = new BoardStruct(10, 10)
     let play: boolean = false
+    let intervalId: number;
 
     function next() {
+        if (!board.isAlive() || !board.isEvolving()) {
+            if (!board.isAlive()) {
+                alert("No live cells on board 😵")
+            } else {
+                alert("Board is stuck 🙅‍")
+            }
+            clearInterval(intervalId)
+            play = false
+            return;
+        }
+
         board = board.next()
     }
 
@@ -15,13 +28,16 @@
 
     function playPause() {
         play = !play
+        clearInterval(intervalId)
+        if (play) {
+            intervalId = setInterval(next, cfg.timeout)
+            return
+        }
     }
 
-    board.cells[4][2].isAlive = true
-    board.cells[5][2].isAlive = true
-    board.cells[6][3].isAlive = true
-    board.cells[7][3].isAlive = true
-    board.cells[8][3].isAlive = true
+    function random() {
+        board = board.random()
+    }
 </script>
 
 <section>
@@ -46,6 +62,10 @@
             {:else}
                 Pause ⏸
             {/if}
+        </button>
+
+        <button on:click={random}>
+            Random 🎲
         </button>
     </aside>
 </section>

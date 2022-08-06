@@ -1,4 +1,4 @@
-import {cloneDeep, compact} from 'lodash'
+import {cloneDeep, compact, sampleSize, random} from 'lodash'
 
 export class CellStruct {
     neighbors: any[] = [];
@@ -28,6 +28,7 @@ export class CellStruct {
 
 export class BoardStruct {
     cells: CellStruct[][] = [];
+    private readonly flat: CellStruct[];
 
     constructor(width: number, height: number) {
         this.cells = Array.from({length: width}, (_, x) => Array.from({length: height}, (_, y): CellStruct => {
@@ -37,6 +38,7 @@ export class BoardStruct {
             return cellStruct;
         }))
         this.linkNeighbors()
+        this.flat = this.flatCells()
     }
 
     public flatCells(): CellStruct[] {
@@ -47,6 +49,20 @@ export class BoardStruct {
             }
         }
         return flat;
+    }
+
+    kill() {
+        this.flat.forEach(x => x.isAlive = false)
+        return this;
+    }
+
+    random() {
+        this.kill();
+        const randomCells = sampleSize(this.flat, random(0, this.flat.length))
+        for (const randomCell of randomCells) {
+            randomCell.isAlive = true;
+        }
+        return this;
     }
 
     toString() {
@@ -76,10 +92,9 @@ export class BoardStruct {
     }
 
     public next() {
-        const flat = this.flatCells()
-        const snapshot = cloneDeep(flat)
-        for (let i = 0; i < flat.length; i++) {
-            flat[i].isAlive = snapshot[i].shouldLive()
+        const snapshot = cloneDeep(this.flat)
+        for (let i = 0; i < this.flat.length; i++) {
+            this.flat[i].isAlive = snapshot[i].shouldLive()
         }
         return this;
     }
@@ -100,5 +115,13 @@ export class BoardStruct {
                 cell.neighbors = compact([north, east, south, west, northwest, northeast, southwest, southeast]);
             }
         }
+    }
+
+    isAlive(): boolean {
+        return this.flatCells().filter(x => x.isAlive).length > 0
+    }
+
+    isEvolving(): boolean {
+        return this.flat.some(x => x.isAlive !== x.shouldLive())
     }
 }
