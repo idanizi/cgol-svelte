@@ -20,4 +20,5 @@ pnpm dev
 
 Running example:
 
-https://user-images.githubusercontent.com/9889268/183268033-a976a2bc-6170-4551-b8af-c6452d0898bc.mp4
+![ezgif-3-eb71c7181a](https://user-images.githubusercontent.com/9889268/183284576-57404e07-e7bd-4e9d-83a5-c71a655fdd7f.gif)
+
